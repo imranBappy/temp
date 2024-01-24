@@ -52,6 +52,15 @@ const Category = () => {
           <CategoryCard title="Android Phone" Icon={PhoneAndroidIcon} />
           <CategoryCard title="Iphone" Icon={AppleIcon} />
           <CategoryCard title="Others" Icon={DevicesOtherIcon} />
+
+          <CategoryCard title="Home Appliances" Icon={AppsIcon} />
+          <CategoryCard title="Desktop" Icon={PersonalVideoIcon} />
+          <CategoryCard title="Laptop" Icon={ScreenSearchDesktopIcon} />
+          <CategoryCard title="Android Phone" Icon={PhoneAndroidIcon} />
+          <CategoryCard title="Iphone" Icon={AppleIcon} />
+          <CategoryCard title="Others" Icon={DevicesOtherIcon} />
+          <CategoryCard title="Others" Icon={DevicesOtherIcon} />
+
         </Box>
       </Container>
     </Box>

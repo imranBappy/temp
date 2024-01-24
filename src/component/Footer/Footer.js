@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <Box
       component={"footer"}
-      mt={25}
+      mt={10}
       sx={{
         width: "100%",
         backgroundColor: "background.dark",
