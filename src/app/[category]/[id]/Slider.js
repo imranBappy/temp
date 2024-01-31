@@ -1,4 +1,6 @@
 "use client";
+import React from "react";
+import { Box } from "@/common";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 
@@ -16,20 +18,12 @@ const images = [
     thumbnail: "https://picsum.photos/id/1019/250/150/",
   },
 ];
-const DemoPage = () => {
+const Slider = () => {
   return (
-    <div
-      style={{
-        marginTop: 100,
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
+    <Box>
       <ImageGallery items={images} />
-    </div>
+    </Box>
   );
 };
 
-export default DemoPage;
+export default Slider;

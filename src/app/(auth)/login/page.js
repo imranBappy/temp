@@ -103,7 +103,7 @@ const Login = () => {
                 mx: 2,
               }}
             >
-              Don't have an account?
+              {`Don't have an account?`}
             </Typography>
             <Divider
               sx={{

@@ -6,16 +6,21 @@ import MobileNavbar from "@/component/Navbar/MobileNavbar";
 import Navbar from "@/component/Navbar/Navbar";
 import theme from "@/theme";
 import { ThemeProvider } from "@emotion/react";
+import { createContext, useState } from "react";
 
-const Wrapper = ({ children }) => {
+export const AddToCartContext = createContext();
+const Wrapper = ({ children, ...rest }) => {
+  const [cart, setCart] = useState([]);
+
   return (
     <ThemeProvider theme={theme}>
-      <Toaster />
-      <Navbar />
-      {children}
-      <Footer />
+      <AddToCartContext.Provider value={[cart, setCart]}>
+        <Toaster />
+        <Navbar />
+        {children}
 
-      <MobileNavbar />
+        <MobileNavbar />
+      </AddToCartContext.Provider>
     </ThemeProvider>
   );
 };

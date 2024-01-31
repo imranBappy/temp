@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import {
   AppBar,
@@ -12,11 +12,11 @@ import {
 import {
   Menu as MenuIcon,
   Search as SearchIcon,
-  AccountCircle,
   AddShoppingCart,
 } from "@mui/icons-material";
 import { Container, Box, Link, Button, Typography } from "@/common";
-
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import { AddToCartContext } from "@/wrapper/Wrapper";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -61,6 +61,7 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [cart] = useContext(AddToCartContext);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -88,19 +89,19 @@ export default function Navbar() {
       onClose={handleMenuClose}
     >
       {isLoggedIn ? (
-        <>
+        <Box>
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
           <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
-        </>
+        </Box>
       ) : (
-        <>
+        <Box>
           <Link href={"/login"}>
             <MenuItem onClick={handleMenuClose}>Login</MenuItem>
           </Link>
           <Link href={"/register"}>
             <MenuItem onClick={handleMenuClose}>Register</MenuItem>
           </Link>
-        </>
+        </Box>
       )}
     </Menu>
   );
@@ -150,45 +151,111 @@ export default function Navbar() {
                 mr: 1,
               }}
             >
-              <Button
-                fullWidth={true}
-                type="submit"
-                size="medium"
-                title={"POST YOUR AD"}
-                variant="outlined"
-                sx={{
-                  color: "white",
-                  backgroundColor: "primary.main",
-                  "&:hover": {
-                    backgroundColor: "primary.dark",
-                  },
-                  mr: 2,
-                  borderColor: "white",
-                  height: "40px",
-                }}
-              />
+              <Link href={"/dashboard"}>
+                <Button
+                  fullWidth={true}
+                  type="submit"
+                  size="medium"
+                  title={"POST YOUR AD"}
+                  variant="outlined"
+                  sx={{
+                    color: "white",
+                    backgroundColor: "primary.main",
+                    "&:hover": {
+                      backgroundColor: "primary.dark",
+                    },
+                    mr: 2,
+                    borderColor: "white",
+                    height: "40px",
+                  }}
+                />
+              </Link>
               <IconButton
                 size="large"
                 edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
+                // aria-label="account of current user"
+                // aria-controls={menuId}
+                // aria-haspopup="true"
+
+                // onClick={handleProfileMenuOpen}
                 color="inherit"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  borderRadius: "5px",
+                  p: 1,
+                }}
               >
-                <AccountCircle />
+                <PermIdentityIcon
+                  sx={{
+                    fontSize: "33px",
+                  }}
+                />
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    gap: 0,
+                  }}
+                >
+                  <Typography
+                    noWrap
+                    component="div"
+                    sx={{
+                      display: {
+                        xs: "none",
+                        sm: "block",
+                        color: "white",
+                        fontSize: "15px",
+                        fontWeight: "semibold",
+                      },
+                    }}
+                  >
+                    Account
+                  </Typography>
+
+                  <Typography
+                    variant="subtitle2"
+                    noWrap
+                    component="div"
+                    sx={{
+                      display: {
+                        xs: "none",
+                        sm: "block",
+                        color: "#bbbbbb",
+                      },
+                    }}
+                  >
+                    <Link href={"/login"}>Login</Link> or{" "}
+                    <Link href={"/register"}>Register</Link>
+                  </Typography>
+                </Box>
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: "flex" } }}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
+              <Link
+                href={"/checkout"}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  borderRadius: "5px",
+                  p: 1,
+                }}
               >
-                <Badge badgeContent={4} color="error">
-                  <AddShoppingCart />
-                </Badge>
-              </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="show 4 new mails"
+                  color="inherit"
+                >
+                  <Badge badgeContent={cart?.length} color="error">
+                    <AddShoppingCart />
+                  </Badge>
+                </IconButton>
+              </Link>
             </Box>
           </Toolbar>
         </Container>

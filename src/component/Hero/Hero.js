@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Grid, Box, Image } from "@/common";
 import Slider from "./Slider";
-import OffterBanner from "../../assets/images/OfferBanner.webp";
+import OffterBannerMobile from "../../assets/images/OfferBannerMobile.png";
 
 const Hero = () => {
   return (
@@ -24,7 +24,7 @@ const Hero = () => {
               }}
             >
               <Image
-                src={OffterBanner}
+                src={OffterBannerMobile}
                 alt="hero"
                 style={{
                   width: "100%",
