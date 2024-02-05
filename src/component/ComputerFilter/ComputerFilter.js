@@ -6,6 +6,7 @@ import FilterBar from "../FilterBar/FilterBar";
 import CheckboxFilter from "../CheckboxFilter/CheckboxFilter";
 import ProductCard from "../ProductCard/ProductCard";
 import Drawer from "@mui/material/Drawer";
+import LocationFilter from "../LocationFilter/LocationFilter";
 
 const ComputerFilter = () => {
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
@@ -26,8 +27,10 @@ const ComputerFilter = () => {
             }}
             flexDirection={"column"}
             gap={2}
+            mb={3}
           >
             <PriceFilter />
+            <LocationFilter />
 
             <CheckboxFilter
               expanded={true}
@@ -35,7 +38,6 @@ const ComputerFilter = () => {
               options={["Used", "New", "Refurbished", "Open Box", "For Parts"]}
             />
             <CheckboxFilter
-              expanded={true}
               title={"Brand"}
               options={["Apple", "Dell", "HP", "Lenovo"]}
             />
@@ -103,8 +105,10 @@ const ComputerFilter = () => {
           sx={{ height: "100%" }}
           gap={2}
           pb={5}
+          mb={3}
         >
           <PriceFilter />
+          <LocationFilter />
 
           <CheckboxFilter
             expanded={true}

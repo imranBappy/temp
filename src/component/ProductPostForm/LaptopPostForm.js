@@ -11,6 +11,7 @@ import {
   Grid,
   Autocomplete,
   IconButton,
+  Image,
 } from "@/common";
 import {
   Radio,
@@ -22,7 +23,7 @@ import {
 import { Cancel } from "@mui/icons-material";
 import { bangladeshDistricts } from "@/data/location";
 import getUpazilas from "@/utils/getUpazilas";
-
+import Images from "@/assets/images";
 const validationSchema = Yup.object({
   title: Yup.string().required("Title is required"),
   brand: Yup.string().required("Brand is required"),
@@ -301,10 +302,16 @@ const LaptopPostForm = () => {
                         >
                           {selectedFiles.map((file, index) => (
                             <Box key={index} mb={2} position={"relative"}>
-                              <img
+                              <Image
                                 src={URL.createObjectURL(file)}
                                 alt="preview"
-                                style={{ width: "100px", height: "100px" }}
+                                width={100}
+                                height={100}
+                                style={{
+                                  width: "100px",
+                                  height: "auto",
+                                  cursor: "pointer",
+                                }}
                               />
                               <IconButton
                                 variant="contained"
@@ -340,6 +347,79 @@ const LaptopPostForm = () => {
                             // file limit 5
                           />
                           <label htmlFor="file">
+                            <Box
+                              display="flex"
+                              flexWrap="wrap"
+                              justifyContent="space-between"
+                              mt={2}
+                            >
+                              <Image
+                                src={Images.UPLOAD_PLACEHOLDER}
+                                alt="upload"
+                                width={100}
+                                height={100}
+                                style={{
+                                  display:
+                                    selectedFiles.length > 0 ? "none" : "",
+                                  width: "100px",
+                                  height: "auto",
+                                  cursor: "pointer",
+                                }}
+                              />
+                              <Image
+                                src={Images.UPLOAD_PLACEHOLDER}
+                                alt="upload"
+                                width={100}
+                                height={100}
+                                style={{
+                                  display:
+                                    selectedFiles.length > 1 ? "none" : "",
+                                  width: "100px",
+                                  height: "auto",
+                                  cursor: "pointer",
+                                }}
+                              />
+                              <Image
+                                src={Images.UPLOAD_PLACEHOLDER}
+                                alt="upload"
+                                width={100}
+                                height={100}
+                                style={{
+                                  display:
+                                    selectedFiles.length > 2 ? "none" : "",
+                                  width: "100px",
+                                  height: "auto",
+                                  cursor: "pointer",
+                                }}
+                              />
+                              <Image
+                                src={Images.UPLOAD_PLACEHOLDER}
+                                alt="upload"
+                                width={100}
+                                height={100}
+                                style={{
+                                  display:
+                                    selectedFiles.length > 3 ? "none" : "",
+                                  width: "100px",
+                                  height: "auto",
+                                  cursor: "pointer",
+                                }}
+                              />
+                              <Image
+                                src={Images.UPLOAD_PLACEHOLDER}
+                                alt="upload"
+                                width={100}
+                                height={100}
+                                style={{
+                                  display:
+                                    selectedFiles.length > 4 ? "none" : "",
+                                  width: "100px",
+                                  height: "auto",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </Box>
+
                             <Button
                               variant="contained"
                               component="span"

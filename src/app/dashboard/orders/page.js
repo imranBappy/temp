@@ -1,42 +1,109 @@
 "use client";
-
-import { DataGrid } from "@mui/x-data-grid";
-import { useDemoData } from "@mui/x-data-grid-generator";
-import { Box } from "@mui/material";
-import { Container } from "@/common";
+import { Container, Box, DataGrid } from "@/common";
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "brand", headerName: "Brand", width: 130 },
-  { field: "model", headerName: "Model", width: 130 },
-  { field: "price", headerName: "Price", type: "number", width: 90 },
+  { field: "id", headerName: "ID", flex: 1 },
+  { field: "date", headerName: "Date", flex: 1 },
+  { field: "brand", headerName: "Brand", flex: 1 },
+  { field: "model", headerName: "Model", flex: 1 },
+  { field: "price", headerName: "Price", type: "number", flex: 1 },
+  {
+    field: "status",
+    headerName: "Status",
+    flex: 1,
+    renderCell: (params) => {
+      return (
+        <strong
+          style={{
+            color: "white",
+            padding: "5px 10px",
+            borderRadius: "5px",
+            backgroundColor: params.value === "Pending" ? "orange" : "green",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          {params.value}
+        </strong>
+      );
+    },
+  },
+  {
+    field: "action",
+    headerName: "Action",
+    flex: 1,
+    renderCell: (params) => {
+      return (
+        <strong
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          <button
+            style={{
+              backgroundColor: "green",
+              color: "white",
+              padding: "5px 10px",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            View
+          </button>
+          <button
+            style={{
+              backgroundColor: "red",
+              color: "white",
+              padding: "5px 10px",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Delete
+          </button>
+        </strong>
+      );
+    },
+  },
 ];
 const generateLaptopData = () => {
   const data = [];
 
-  for (let i = 1; i <= 20; i++) {
+  for (let i = 1; i <= 209; i++) {
     data.push({
       id: i,
+      date: new Date().toISOString(),
       brand: `Brand ${i}`,
       model: `Model ${i}`,
       price: Math.floor(Math.random() * 1000) + 500, // Example random price between 500 and 1500
+      status: i % 2 === 0 ? "Pending" : "Delivered",
     });
   }
 
   return data;
 };
+
 const MyOrder = () => {
-  const { data } = useDemoData({
-    dataSet: "Commodity",
-    rowLength: 20,
-    maxColumns: 5,
-  });
   const rows = generateLaptopData();
-  console.log(data);
   return (
     <Box my={8}>
-      <Container>
-        <Box sx={{ height: 800, width: "100%" }}>
-          <DataGrid rows={rows} columns={columns} pageSize={5} />
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            height: 800,
+            width: "100%",
+          }}
+        >
+          <DataGrid
+            columns={columns}
+            pageSize={10}
+            rows={rows}
+            autoPageSize={true}
+          />
         </Box>
       </Container>
     </Box>

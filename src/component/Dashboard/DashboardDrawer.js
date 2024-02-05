@@ -1,6 +1,4 @@
 "use client";
-
-import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import { toast } from "react-hot-toast";
 
@@ -23,7 +21,10 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { ViewDaySharp } from "@mui/icons-material";
+import { DashboardModeContext } from "@/wrapper/Wrapper";
+import { useContext } from "react";
 
 const buyerMenu = [
   {
@@ -39,8 +40,13 @@ const sellerMenu = [
     link: "/dashboard/received-orders",
   },
   {
-    name: "My Ads",
+    name: "Post Ads",
     icon: <AdsClickIcon />,
+    link: "/dashboard/post-ads",
+  },
+  {
+    name: "My Ads",
+    icon: <ViewDaySharp />,
     link: "/dashboard/ads",
   },
 ];
@@ -78,12 +84,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const DashboardDrawer = ({ open, handleDrawerClose }) => {
   const theme = useTheme();
   const router = useRouter();
+  const pathname = usePathname();
+  const [dashboardMode] = useContext(DashboardModeContext);
 
   const handleLogout = () => {
     toast.success("Logged out successfully");
     router.push("/login");
   };
-
   return (
     <Drawer
       sx={{
@@ -109,43 +116,80 @@ const DashboardDrawer = ({ open, handleDrawerClose }) => {
       </DrawerHeader>
       <Divider />
       <List>
-        {generalMenu.map((item, index) => (
-          <ListItem key={index} disablePadding>
-            <Link href={item.link} style={{ width: "100%" }}>
-              <ListItemButton>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
+        {generalMenu.map((item, index) => {
+          return (
+            <ListItem
+              key={index}
+              disablePadding
+              style={{
+                backgroundColor:
+                  pathname === item.link
+                    ? "rgba(0, 0, 0, 0.09)"
+                    : "transparent",
+              }}
+            >
+              <Link href={item.link} style={{ width: "100%" }}>
+                <ListItemButton>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+          );
+        })}
       </List>
-      <Divider />
-      <List>
-        {buyerMenu.map((item, index) => (
-          <ListItem key={index} disablePadding>
-            <Link href={item.link} style={{ width: "100%" }}>
-              <ListItemButton>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {sellerMenu.map((item, index) => (
-          <ListItem key={index} disablePadding>
-            <Link href={item.link} style={{ width: "100%" }}>
-              <ListItemButton>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
+      {dashboardMode === "buyer" && (
+        <>
+          <Divider />
+          <List>
+            {buyerMenu.map((item, index) => (
+              <ListItem
+                key={index}
+                disablePadding
+                style={{
+                  backgroundColor:
+                    pathname === item.link
+                      ? "rgba(0, 0, 0, 0.09)"
+                      : "transparent",
+                }}
+              >
+                <Link href={item.link} style={{ width: "100%" }}>
+                  <ListItemButton>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.name} />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            ))}
+          </List>
+        </>
+      )}
+      {dashboardMode === "seller" && (
+        <>
+          <Divider />
+          <List>
+            {sellerMenu.map((item, index) => (
+              <ListItem
+                key={index}
+                disablePadding
+                style={{
+                  backgroundColor:
+                    pathname === item.link
+                      ? "rgba(0, 0, 0, 0.09)"
+                      : "transparent",
+                }}
+              >
+                <Link href={item.link} style={{ width: "100%" }}>
+                  <ListItemButton>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.name} />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            ))}
+          </List>
+        </>
+      )}
       <Divider />
       <List>
         <ListItem disablePadding>
